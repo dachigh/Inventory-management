@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit{
   currentIndex = -1;
   title = '';
   place = '';
-  places = ['მთავარი ოფისი', 'კავეა გალერია', 'კავეა თბილისი მოლი','კავეა ისთ ფოინთი','კავეა სითი მოლი'];
+  places = ['Main Office', 'Cavea Galleria', 'Cavea Tbilisi Mall','Cavea East Point','Cavea City Mall'];
 
 
   ItemAmount:any;
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit{
     let params: any = {};
 
     if (searchPlace) {
-      params[`title`] = searchPlace;
+      params[`place`] = searchPlace;
     }
 
     if (page) {
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit{
 
   retrieveInventories(): void {
 
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    const params = this.getRequestParams(this.place, this.page, this.pageSize);
 
     this.inventoryService.getAll(params).subscribe(
       response => {
