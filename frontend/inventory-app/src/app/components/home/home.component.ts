@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit{
   count = 0;
   pageSize = 20;
   pageSizes = [3, 6, 9];
+  sortBy: string = 'title';
+  sortOrder: string = ''
 
   constructor(private inventoryService: InventoryService) {}
 
@@ -29,7 +31,7 @@ export class HomeComponent implements OnInit{
     this.retrieveInventories();
   }
 
-  getRequestParams(searchPlace: string, page: number, pageSize: number): any {
+  getRequestParams(searchPlace: string, page: number, pageSize: number,sortBy: string, sortOrder: string): any {
     let params: any = {};
 
     if (searchPlace) {
@@ -43,13 +45,21 @@ export class HomeComponent implements OnInit{
     if (pageSize) {
       params[`size`] = pageSize;
     }
+    if (sortBy) {
+      params[`sortBy`] = sortBy;
+    }
+  
+    if (sortOrder) {
+      params[`sortOrder`] = sortOrder;
+    }
+
 
     return params;
   }
 
   retrieveInventories(): void {
 
-    const params = this.getRequestParams(this.place, this.page, this.pageSize);
+    const params = this.getRequestParams(this.place, this.page, this.pageSize, this.sortBy, this.sortOrder);
 
     this.inventoryService.getAll(params).subscribe(
       response => {
@@ -95,8 +105,15 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  searchPlace(): void {
+  // searchPlace(): void {
+  //   this.page = 1;
+  //   this.retrieveInventories();
+  // }
+
+  sort(title: string, sortOrder: string): void {
     this.page = 1;
+    this.sortBy = title;
+    this.sortOrder = sortOrder;
     this.retrieveInventories();
   }
 

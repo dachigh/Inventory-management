@@ -3,7 +3,13 @@
   <table style="margin: 0 auto">
     <thead>
       <tr>
-        <th>სახელი</th>
+        <th>
+          <div style="display: flex; flex-direction: row;">
+            <span>სახელი</span>
+            <button (click)="sort('title', sortOrder === 'asc' ? 'desc' : 'asc')">sortByTitle</button>
+          </div>
+        </th>
+
         <th>
           <div style="display: flex; flex-direction: row;">
             <label for="location-select" style="margin-right: 5px;">ადგილმდებარეობა:</label>
@@ -13,8 +19,12 @@
             </select>
           </div>
         </th>
-        
-        <th>ფასი ₾</th>
+        <th>
+          <div style="display: flex; flex-direction: row;">
+            <span>ფასი ₾</span>
+            <button (click)="sort('price', sortOrder === 'asc' ? 'desc' : 'asc')">sortByPrice</button>
+          </div>
+        </th>
         <th>ოპერაცია</th>
       </tr>
     </thead>
