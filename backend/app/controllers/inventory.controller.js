@@ -3,7 +3,7 @@ const Inventory = db.inventories;
 const Op = db.Sequelize.Op;
 
 const getPagination = (page, size) => {
-  const limit = size ? +size : 3;
+  const limit = size ? +size : 20;
   const offset = page ? page * limit : 0;
 
   return { limit, offset };
@@ -51,12 +51,17 @@ exports.create = (req, res) => {
 
 // Retrieve all Inventories from the database.
 exports.findAll = (req, res) => {
-  const { page, size, place } = req.query;
+  const { page, size, place, sortBy, sortOrder } = req.query;
   var condition = place ? { place: { [Op.eq]: `${place}` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 
-  Inventory.findAndCountAll({ where: condition, limit, offset })
+  let order;
+  if (sortBy && sortOrder) {
+    order = [[sortBy, sortOrder]];
+  }
+
+  Inventory.findAndCountAll({ where: condition, limit, offset,order })
     .then(data => {
       const response = getPagingData(data, page, limit);
       res.send(response);
@@ -68,38 +73,6 @@ exports.findAll = (req, res) => {
       });
     });
 };
-
-
-// exports.findAll = (req, res) => {
-//   const place = req.query.place;
-//   var condition = place ? { place: { [Op.eq]: place } } : null;
-
-//   const sortBy = req.query.sortBy;
-//   var order = [['title', 'ASC']]; // Default sort order
-
-//   if (sortBy === 'titleAsc') {
-//     order = [['title', 'ASC']];
-//   } else if (sortBy === 'titleDesc') {
-//     order = [['title', 'DESC']];
-//   } else if (sortBy === 'priceAsc') {
-//     order = [['price', 'ASC']];
-//   } else if (sortBy === 'priceDesc') {
-//     order = [['price', 'DESC']];
-//   }
-
-
-//   Inventory.findAll({ where: condition, order: order })
-//     .then(data => {
-//       res.send(data);
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving inventories."
-//       });
-//     });
-// };
-
 
 // Delete a Inventory with the specified id in the request
 exports.delete = (req, res) => {
