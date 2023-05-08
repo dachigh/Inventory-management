@@ -9,11 +9,19 @@ import { InventoryService } from '../../services/inventory.service';
 })
 export class HomeComponent implements OnInit{
 
-  inventories?: Inventory[];
+  inventories: Inventory[] = [];
   currentInventory: Inventory = {};
   currentIndex = -1;
   title = '';
   place = '';
+  places = ['მთავარი ოფისი', 'კავეა გალერია', 'კავეა თბილისი მოლი','კავეა ისთ ფოინთი','კავეა სითი მოლი'];
+
+
+  ItemAmount:any;
+  page = 1;
+  count = 0;
+  pageSize = 20;
+  pageSizes = [3, 6, 9];
 
   constructor(private inventoryService: InventoryService) {}
 
@@ -21,16 +29,56 @@ export class HomeComponent implements OnInit{
     this.retrieveInventories();
   }
 
-  retrieveInventories(): void {
-    this.inventoryService.getAll().subscribe({
-      next: (data) => {
-        this.inventories = data;
-        console.log(data);
-      },
-      error: (e) => console.error(e),
-    });
+  getRequestParams(searchPlace: string, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (searchPlace) {
+      params[`title`] = searchPlace;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 
+  retrieveInventories(): void {
+
+    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+
+    this.inventoryService.getAll(params).subscribe(
+      response => {
+        const { inventories, totalItems } = response;
+        this.inventories = inventories;
+        this.count = totalItems;
+        this.ItemAmount = totalItems;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.retrieveInventories();
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.retrieveInventories();
+  }
+
+  setActiveInventory(inventory: Inventory, index: number): void {
+    this.currentInventory = inventory;
+    this.currentIndex = index;
+  }
   refreshList(): void {
     this.retrieveInventories();
     this.currentInventory = {};
@@ -46,7 +94,10 @@ export class HomeComponent implements OnInit{
       error: (e) => console.error(e),
     });
   }
-  places = ['Main Office', 'Cavea Galleria', 'Cavea Tbilisi Mall','Cavea East Point','Cavea City Mall'];
 
+  searchPlace(): void {
+    this.page = 1;
+    this.retrieveInventories();
+  }
 
 }

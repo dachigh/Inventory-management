@@ -1,17 +1,30 @@
 <div style="text-align: center">
-  <button class="add-btn" routerLink="/add">ახალი ნივთის დამატება</button>
+  <button  routerLink="/add">ახალი ნივთის დამატება</button>
   <table style="margin: 0 auto">
     <thead>
       <tr>
         <th>სახელი</th>
-        <th>ადგილმდებარეობა </th>
+        <th>
+          <div style="display: flex; flex-direction: row;">
+            <label for="location-select" style="margin-right: 5px;">ადგილმდებარეობა:</label>
+            <select id="location-select"  [(ngModel)]="place">
+              <option value="">ყველა</option>
+              <option *ngFor="let p of places" [value]="p">{{ p }}</option>
+            </select>
+          </div>
+        </th>
+        
         <th>ფასი ₾</th>
         <th>ოპერაცია</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        *ngFor="let inventory of inventories; let i = index"
+        *ngFor="let inventory of inventories | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }; let i = index"
         [class.active]="i == currentIndex"
       >
         <td>{{ inventory.title }}</td>
@@ -25,4 +38,14 @@
       </tr>
     </tbody>
   </table>
+  <div class="col-md-12">
+    <pagination-controls
+      previousLabel="წინა "
+      nextLabel="შემდეგი"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls> <span>ნივთების ჯამური რაოდენობა: {{ItemAmount}}</span>
+  </div>
+  
 </div>
+

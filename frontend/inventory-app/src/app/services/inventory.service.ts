@@ -15,9 +15,9 @@ export class InventoryService {
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
-
-  getAll(): Observable<Inventory[]> {
-    return this.http.get<Inventory[]>(baseUrl);
+  
+  getAll(params: any): Observable<any> {
+    return this.http.get<any>(baseUrl, { params });
   }
 
   delete(id: any): Observable<any> {
