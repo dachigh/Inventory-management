@@ -1,0 +1,28 @@
+<div style="text-align: center">
+  <button class="add-btn" routerLink="/add">ახალი ნივთის დამატება</button>
+  <table style="margin: 0 auto">
+    <thead>
+      <tr>
+        <th>სახელი</th>
+        <th>ადგილმდებარეობა </th>
+        <th>ფასი ₾</th>
+        <th>ოპერაცია</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let inventory of inventories; let i = index"
+        [class.active]="i == currentIndex"
+      >
+        <td>{{ inventory.title }}</td>
+        <td>{{ inventory.place }}</td>
+        <td>{{ inventory.price + "₾" }}</td>
+        <td>
+          <button (click)="deleteInventory(inventory)">
+            წაშლა
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
