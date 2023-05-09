@@ -42,8 +42,12 @@ export class AddComponent {
     this.submitted = false;
     this.form = { title: '', place: '', price: 0,};
   }
+  clearPrice() {
+    if (this.form.price === 0) {
+      this.form.price = null;
+    }
 
   
-
+  }
 
 }

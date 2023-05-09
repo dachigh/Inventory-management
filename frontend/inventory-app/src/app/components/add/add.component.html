@@ -58,7 +58,8 @@
             <div class="form-group">
               <label>ფასი</label>
               <input
-                type="price"
+              (click)="clearPrice()"
+                type="number"
                 class="form-control"
                 name="price"
                 [(ngModel)]="form.price"

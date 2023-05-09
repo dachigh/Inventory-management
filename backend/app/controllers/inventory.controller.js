@@ -20,9 +20,15 @@ const getPagingData = (data, page, limit) => {
 // Create and Save a new Inventory
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.title || !req.body.price || !req.body.place) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "All fields are required!"
+    });
+    return;
+  }
+  if (req.body.price === null) {
+    res.status(400).send({
+      message: "Price can not be null!"
     });
     return;
   }
