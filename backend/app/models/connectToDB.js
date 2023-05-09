@@ -1,5 +1,6 @@
 const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
+
 const faker = require("faker");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -27,7 +28,6 @@ function getRandomPlace() {
   const randomIndex = Math.floor(Math.random() * places.length);
   return places[randomIndex];
 }
-
 
 //inserting 300,000 data
 async function* generateFakeData() {
