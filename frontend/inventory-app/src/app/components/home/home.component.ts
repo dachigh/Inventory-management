@@ -105,11 +105,6 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  // searchPlace(): void {
-  //   this.page = 1;
-  //   this.retrieveInventories();
-  // }
-
   sort(title: string, sortOrder: string): void {
     this.page = 1;
     this.sortBy = title;
