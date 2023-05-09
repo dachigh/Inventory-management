@@ -1,6 +1,6 @@
 export class Inventory {
-    id?: any;
+    id?: string;
     title?: string;
     place?: string;
-    price?: number;
+    price?: number | null;
   }

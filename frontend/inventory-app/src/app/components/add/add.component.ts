@@ -20,9 +20,7 @@ export class AddComponent {
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
-    console.log(JSON.stringify(this.form, null, 2));
-  }
+
 
   saveInventory(): void {
     const data = {
@@ -46,8 +44,6 @@ export class AddComponent {
     if (this.form.price === 0) {
       this.form.price = null;
     }
-
-  
   }
 
 }

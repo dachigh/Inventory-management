@@ -3,7 +3,7 @@
     <form
       name="form"
       #f="ngForm"
-      (ngSubmit)="f.form.valid && onSubmit()"
+      (ngSubmit)="f.form.valid"
       novalidate
     >
       <div class="submit-form">
@@ -70,7 +70,6 @@
               />
               <div *ngIf="f.submitted && price.errors" class="invalid-feedback">
                 <div *ngIf="price.errors['required']">აუცილებელი ველი</div>
-                <div *ngIf="price.errors['price']">Price is invalid</div>
               </div>
             </div>
 
