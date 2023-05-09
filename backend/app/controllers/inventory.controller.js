@@ -1,4 +1,4 @@
-const db = require("../models/connectToDB");
+const db = require("../models/connectToDB.js");
 const Inventory = db.inventories;
 const Op = db.Sequelize.Op;
 
@@ -32,8 +32,6 @@ exports.create = (req, res) => {
     title: req.body.title,
     price: req.body.price, 
     place: req.body.place,
-    published: req.body.published ? req.body.published : false,
-
   };
 
   // Save Inventory in the database
@@ -69,7 +67,7 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving inventories."
       });
     });
 };
