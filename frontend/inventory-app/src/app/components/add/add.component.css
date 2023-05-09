@@ -1,4 +1,18 @@
+
+
 .submit-form {
     max-width: 400px;
     margin: auto;
+  }
+  .add-item-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  .center{
+
+    height: 400px;
+    width: 400px;
+
   }
