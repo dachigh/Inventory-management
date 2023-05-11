@@ -12,7 +12,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const db = require("./app/models/connectToDB");
+const db = require("./models/connectToDB.js");
 db.sequelize
   .sync()
   .then(() => {
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Server running" });
 });
 
-require("./app/routes/inventory.routes")(app);
+require("./routes/inventory.routes.js")(app);
 
 // PORT
 const PORT = process.env.PORT || 8080;

@@ -14,8 +14,13 @@ export class HomeComponent implements OnInit{
   currentIndex = -1;
   title = '';
   place = '';
-  places = ['Main Office', 'Cavea Galleria', 'Cavea Tbilisi Mall','Cavea East Point','Cavea City Mall'];
-
+  places = [
+    "მთავარი ოფისი",
+    "კავეა გალერია",
+    "კავეა თბილისი მოლი",
+    "კავეა ისთ ფოინთი",
+    "კავეა სითი მოლი",
+  ];
 
   ItemAmount:any;
   page = 1;
@@ -104,11 +109,6 @@ export class HomeComponent implements OnInit{
       error: (e) => console.error(e),
     });
   }
-
-  // searchPlace(): void {
-  //   this.page = 1;
-  //   this.retrieveInventories();
-  // }
 
   sort(title: string, sortOrder: string): void {
     this.page = 1;

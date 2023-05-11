@@ -23,11 +23,11 @@
                 #place="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && place.errors }"
               >
-                <option value="Main Office">მთავარი ოფისი</option>
-                <option value="Cavea City Mall">კავეა სითი მოლი</option>
-                <option value="Cavea Galleria">კავეა გალერია</option>
-                <option value="Cavea East Point">კავეა ისთ ფოინთი</option>
-                <option value="Cavea Tbilisi Mall">კავეა თბილისი მოლი</option>
+                <option value="მთავარი ოფისი">მთავარი ოფისი</option>
+                <option value="კავეა სითი მოლი">კავეა სითი მოლი</option>
+                <option value="კავეა გალერია">კავეა გალერია</option>
+                <option value="კავეა ისთ ფოინთი">კავეა ისთ ფოინთი</option>
+                <option value="კავეა თბილისი მოლი">კავეა თბილისი მოლი</option>
               </select>
               <div *ngIf="f.submitted && place.errors" class="invalid-feedback">
                 <div *ngIf="place.errors['required']">აუცილებელი ველი</div>
